@@ -149,7 +149,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
                   localStorage.setItem(`banned:${params.slug}`, '1');
                   router.push('/rate');
                 }}
-                className="text-gray-600 hover:underline"
+                className="text-gray-600 hover:underline text-left"
               >
                 I don't know or care what this is
               </button>

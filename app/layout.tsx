@@ -3,7 +3,7 @@
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { use, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })

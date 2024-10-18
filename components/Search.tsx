@@ -24,15 +24,15 @@ export default function Search() {
       const data = await response.json()
 
       if (data.query && data.query.pages) {
-        const results = Object.values(data.query.pages)
-          .sort((a: any, b: any) => a.index - b.index)
-          .map((page: any) => ({
+        const results = (Object.values(data.query.pages) as SearchResult[])
+          .sort((a, b) => a.index - b.index)
+          .map((page) => ({
             index: page.index,
             title: page.title,
             description: page.description,
             thumbnail: page.thumbnail
           }))
-        setSearchResults(results as SearchResult[])
+        setSearchResults(results)
       } else {
         setSearchResults([])
       }

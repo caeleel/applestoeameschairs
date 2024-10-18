@@ -63,10 +63,10 @@ export interface SearchResult {
   }
 }
 
-export function getSearchResults(data: any, title: string): SearchResult | null {
+export function getSearchResults(data: { query: { pages: { [key: string]: SearchResult } } }, title: string): SearchResult | null {
   const pages = data.query?.pages
   if (pages) {
-    const page = Object.values(pages)[0] as any
+    const page = Object.values(pages)[0] as SearchResult
     if (page.title === title) {
       if (page.thumbnail?.source) {
         page.thumbnail.source = page.thumbnail.source.replace(/\/\d+px-/, '/480px-')

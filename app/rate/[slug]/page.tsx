@@ -158,6 +158,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
                                 ${userVote === rating ? 'bg-[--hover-color]' : ''}`}
                       style={{
                         '--hover-color': bgColor,
+                        backgroundColor: ratingData ? (userVote === rating ? bgColor : 'gray') : 'gray',
                         height: ratingData ? getBarHeight(ratingData[`rating_${rating}` as keyof RatingData] || 0) : undefined
                       } as React.CSSProperties}
                       onClick={() => !ratingData && !isLoading && handleRating(rating)}

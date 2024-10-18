@@ -57,7 +57,7 @@ export default function Home() {
                   style={{ '--hover-bg-color': hoverColor } as React.CSSProperties}
                 >
                   <td className="group">
-                    <div className="flex gap-4 items-center group-hover:bg-[--hover-bg-color] group-hover:text-black py-4 px-2 h-16">
+                    <div className="flex gap-4 items-center group-hover:bg-[--hover-bg-color] group-hover:text-black py-4 pl-2 pr-8 h-16">
                       <div className="w-6 text-right">{index + 1}</div>
                       <Link href={`/rate/${item.name}`} className="text-right w-24 text-4xl hover:underline font-bold">
                         {item.score.toFixed(2)}

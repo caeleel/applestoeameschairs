@@ -67,7 +67,7 @@ export default function Search() {
 
   return (
     <div className="absolute top-12 left-0 right-0">
-      <div className="bg-white flex items-center justify-start pl-12 pr-10 pt-2 pb-4 h-10 gap-2">
+      <div className="bg-white flex items-center justify-start pl-6 pr-10 py-4 h-12 gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
@@ -75,7 +75,7 @@ export default function Search() {
           ref={inputRef}
           type="text"
           placeholder="Search to rate"
-          className="w-full p-2 text-gray-900 rounded-lg focus:outline-none"
+          className="w-full text-gray-900 rounded-lg focus:outline-none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={() => setIsResultsOpen(true)}

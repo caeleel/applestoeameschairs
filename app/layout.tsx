@@ -73,18 +73,13 @@ function NavBar() {
           </Link>
         </li>
         <li>
-          <Link href="/battle/ranking" className="nav-item hover:text-primary">
-            This vs That Ranking
-          </Link>
-        </li>
-        <li>
           <Link href="/rate" className="nav-item hover:text-primary">
             1 - 10
           </Link>
         </li>
         <li>
           <Link href="/" className="nav-item hover:text-primary">
-            1 - 10 Ranking
+            Ranking
           </Link>
         </li>
       </ul>

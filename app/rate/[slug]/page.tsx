@@ -119,59 +119,63 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <div className="flex flex-grow pt-8">
+      <div className="flex flex-col md:flex-row flex-grow pt-10">
         {/* Left Pane */}
-        <div className="w-1/2 flex flex-col items-center justify-center p-8" style={{ backgroundColor: bgColor }}>
+        <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-row md:flex-col items-center justify-center p-10 g-4" style={{ backgroundColor: bgColor }}>
           {thumbnailUrl && (
-            <div className="mb-8">
-              <Image src={thumbnailUrl} alt={title} width={240} height={240} />
+            <div>
+              <Image src={thumbnailUrl} alt={title} width={240} height={240} className="w-full h-auto" />
             </div>
           )}
-          <h1 className="text-2xl font-bold text-black mb-2 text-center">{title}</h1>
-          {description && (
-            <p className="text-l text-gray-800 text-center italic">{description}</p>
-          )}
-          <div className="mt-8 flex flex-col items-center text-sm">
-            <a
-              href={`https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:underline mb-2 flex items-center"
-            >
-              wtf is this
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-            <button
-              onClick={() => {
-                localStorage.setItem(`banned:${params.slug}`, '1');
-                router.push('/rate');
-              }}
-              className="text-gray-600 hover:underline"
-            >
-              I don't know or care what this is
-            </button>
+          <div className="p-8">
+            <h1 className="text-2xl font-bold text-black mb-2 text-left">{title}</h1>
+            {description && (
+              <p className="text-l text-gray-800 text-left italic">{description}</p>
+            )}
+            <div className="mt-8 flex flex-col items-start text-sm">
+              <a
+                href={`https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:underline mb-2 flex items-center"
+              >
+                wtf is this
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+              <button
+                onClick={() => {
+                  localStorage.setItem(`banned:${params.slug}`, '1');
+                  router.push('/rate');
+                }}
+                className="text-gray-600 hover:underline"
+              >
+                I don't know or care what this is
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Right Pane */}
-        <div className="w-1/2 bg-black flex flex-col items-center justify-end relative">
+        <div className="w-full h-1/2 md:w-1/2 md:h-full bg-black flex flex-col items-center justify-end relative">
           {isLoading && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-              <span className="text-8xl font-bold animate-pulse" style={{ color: bgColor }}>
-                {loadingScore.toFixed(1)}
-              </span>
+              <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="text-8xl font-bold animate-pulse" style={{ color: bgColor }}>
+                  {loadingScore.toFixed(1)}
+                </span>
+              </div>
             </div>
           )}
           {ratingData && !isLoading && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <span className="text-8xl font-bold" style={{ color: bgColor }}>
                 {ratingData.score.toFixed(1)}
               </span>
             </div>
           )}
-          <div className="flex justify-center items-end w-full h-64 mb-8">
+          <div className="flex justify-center items-end w-full mb-8">
             <div className="flex space-x-1 w-3/4">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((rating) => (
                 <div key={rating} className="flex flex-col items-center w-[10%] group">

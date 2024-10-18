@@ -3,23 +3,19 @@ import { sql } from '@vercel/postgres';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const type = searchParams.get('type') || 'elo';
+  const type = searchParams.get('type');
 
-  if (type !== 'elo' && type !== 'score') {
-    return NextResponse.json({ error: 'Invalid type parameter. Use "elo" or "score".' }, { status: 400 });
+  if (type !== 'score') {
+    return NextResponse.json({ error: 'Invalid ranking type' }, { status: 400 });
   }
 
   try {
-    const query = `
-      SELECT name, description, elo, score
+    const result = await sql`
+      SELECT name, description, score
       FROM rankings
-      ORDER BY ${type} DESC
+      ORDER BY score DESC
+      LIMIT 100
     `;
-    const result = await sql.query(query);
-
-    if (result.rows.length === 0) {
-      return NextResponse.json({ message: 'No rankings found' }, { status: 404 });
-    }
 
     return NextResponse.json(result.rows);
   } catch (error) {
@@ -27,5 +23,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to fetch rankings' }, { status: 500 });
   }
 }
+
 
 

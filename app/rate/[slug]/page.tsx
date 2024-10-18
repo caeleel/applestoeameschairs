@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Search from '@/components/Search';
 import { getSearchResults, hashStringToColor } from '@/lib/util';
+import { useRouter } from 'next/navigation';
 
 interface RatingData {
   rating_1: number;
@@ -38,6 +39,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
     }
   }
 
+  const router = useRouter()
   useEffect(() => {
     const decodedSlug = decodeURIComponent(params.slug.replace(/_/g, ' '))
     setTitle(decodedSlug)
@@ -129,6 +131,28 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
           {description && (
             <p className="text-l text-gray-800 text-center italic">{description}</p>
           )}
+          <div className="mt-8 flex flex-col items-center text-sm">
+            <a
+              href={`https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:underline mb-2 flex items-center"
+            >
+              wtf is this
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            <button
+              onClick={() => {
+                localStorage.setItem(`banned:${params.slug}`, '1');
+                router.push('/rate');
+              }}
+              className="text-gray-600 hover:underline"
+            >
+              I don't know or care what this is
+            </button>
+          </div>
         </div>
 
         {/* Right Pane */}

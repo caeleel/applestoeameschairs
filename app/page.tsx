@@ -50,6 +50,7 @@ export default function Home() {
           <tbody>
             {rankings.map((item: Ranking, index: number) => {
               const hoverColor = hashStringToColor(item.name);
+              const hoverColorTransparent = hashStringToColor(item.name, 0);
               return (
                 <tr
                   key={item.name}
@@ -57,16 +58,20 @@ export default function Home() {
                   style={{ '--hover-bg-color': hoverColor } as React.CSSProperties}
                 >
                   <td className="group">
-                    <div className="flex gap-4 items-center group-hover:bg-[--hover-bg-color] group-hover:text-black py-4 pl-2 pr-8 h-16">
-                      <div className="w-6 text-right">{index + 1}</div>
-                      <Link href={`/rate/${item.name}`} className="text-right w-24 text-4xl hover:underline font-bold">
-                        {item.score.toFixed(2)}
-                      </Link>
-                      <div className="flex-grow">
-                        <Link href={`/rate/${item.name}`} className="text-lg font-bold hover:underline">{item.name.replace(/_/g, ' ')}</Link>
-                        <div className="text-sm text-gray-400 group-hover:text-gray-700">{item.description}</div>
+                    <div className="group-hover:bg-[--hover-bg-color] group-hover:text-black flex items-center py-4 pl-2 pr-8 h-16 relative">
+                      <div className="flex gap-4 items-center">
+                        <div className="w-6 text-right">{index + 1}</div>
+                        <Link href={`/rate/${item.name}`} className="text-right w-24 text-4xl hover:underline font-bold">
+                          {item.score.toFixed(2)}
+                        </Link>
+                        <div className="relative" style={{ width: 'calc(100vw - 200px)' }}>
+                          <Link href={`/rate/${item.name}`} className="text-lg font-bold hover:underline w-full block overflow-ellipsis overflow-hidden whitespace-nowrap">{item.name.replace(/_/g, ' ')}</Link>
+                          <div className="text-xs text-gray-400 group-hover:text-gray-700 w-full block overflow-ellipsis overflow-hidden whitespace-nowrap">{item.description}</div>
+                        </div>
                       </div>
-                      <div className="items-center hidden group-hover:flex">
+                      <div className="absolute right-0 top-0 h-16 pl-12 items-center hidden text-sm group-hover:flex" style={{
+                        background: `linear-gradient(90deg, ${hoverColorTransparent} 0%, ${hoverColor} 20%)`
+                      }}>
                         <a
                           href={`https://en.wikipedia.org/wiki/${item.name}`}
                           target="_blank"

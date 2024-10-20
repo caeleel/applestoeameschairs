@@ -119,20 +119,20 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row flex-grow pt-10">
+      <div className="flex flex-col md:flex-row flex-grow pt-8">
         {/* Left Pane */}
-        <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-row md:flex-col items-center justify-center p-10 g-4" style={{ backgroundColor: bgColor }}>
+        <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-row md:flex-col items-center justify-center p-4" style={{ backgroundColor: bgColor }}>
           {thumbnailUrl && (
             <div>
-              <Image src={thumbnailUrl} alt={title} width={240} height={240} className="w-full h-auto" />
+              <Image src={thumbnailUrl} alt={title} width={240} height={240} />
             </div>
           )}
           <div className="p-8">
-            <h1 className="text-2xl font-bold text-black mb-2 text-left">{title}</h1>
+            <h1 className="text-2xl font-bold text-black mb-2 md:text-center text-left">{title}</h1>
             {description && (
-              <p className="text-l text-gray-800 text-left italic">{description}</p>
+              <p className="text-l text-gray-800 md:text-center text-left italic">{description}</p>
             )}
-            <div className="mt-8 flex flex-col items-start text-sm">
+            <div className="mt-8 flex flex-col md:items-center items-start text-sm">
               <a
                 href={`https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`}
                 target="_blank"
@@ -149,7 +149,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
                   localStorage.setItem(`banned:${params.slug}`, '1');
                   router.push('/rate');
                 }}
-                className="text-gray-600 hover:underline text-left"
+                className="text-gray-600 text-left md:text-center hover:underline"
               >
                 I don't know or care what this is
               </button>

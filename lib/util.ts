@@ -34,7 +34,7 @@ export async function callWikipediaSearch(query: string, limit: string) {
   }
 }
 
-export function hashStringToColor(str: string) {
+export function hashStringToColor(str: string, alpha = 1) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -49,7 +49,7 @@ export function hashStringToColor(str: string) {
   const saturation = 70 + (hash % 30); // 70-100%
   const lightness = 70 + (hash % 20);  // 70-90%
 
-  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 }
 
 export interface SearchResult {

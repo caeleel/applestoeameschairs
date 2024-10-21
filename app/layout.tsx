@@ -13,7 +13,7 @@ function NavBar() {
         <ul className="flex justify-between items-center py-4 px-12 nav-list relative">
           <li className="w-1/3 text-left">
             <Link href="/battle" className="font-medium text-black nav-item hover:text-primary hover:underline">
-              This vs That
+              This v That
             </Link>
           </li>
           <li className="w-1/3 text-center">

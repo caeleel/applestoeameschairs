@@ -3,17 +3,18 @@
 import Search from "@/components/Search"
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { fetchWeightedItems, WeightedItem } from '@/lib/util'
 
-function getRandomSlug(items: [string, number][]) {
-  const totalWeight = items.reduce((sum, [_, weight]) => sum + weight, 0)
+function getRandomSlug(items: WeightedItem[]) {
+  const totalWeight = items.reduce((sum, item) => sum + item.weight, 0)
   let random = Math.random() * totalWeight
 
-  for (const [slug, weight] of items) {
-    if (random < weight) return slug
-    random -= weight
+  for (const item of items) {
+    if (random < item.weight) return item.slug
+    random -= item.weight
   }
 
-  return items[0][0] // Fallback to first item if something goes wrong
+  return items[0].slug // Fallback to first item if something goes wrong
 }
 
 export default function RatePage() {
@@ -22,21 +23,16 @@ export default function RatePage() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch('/filtered.txt')
-      .then(response => response.text())
-      .then(text => {
-        const items: [string, number][] = text.trim().split('\n').map(line => {
-          const [slug, weight] = line.split(' ')
-          return [slug, parseFloat(weight)]
-        })
+    async function loadRandomSlug() {
+      const items = await fetchWeightedItems()
+      if (items.length > 0) {
         const randomSlug = getRandomSlug(items)
         setSlug(randomSlug)
-        setIsLoading(false)
-      })
-      .catch(error => {
-        console.error('Error fetching filtered.txt:', error)
-        setIsLoading(false)
-      })
+      }
+      setIsLoading(false)
+    }
+
+    loadRandomSlug()
   }, [])
 
   useEffect(() => {

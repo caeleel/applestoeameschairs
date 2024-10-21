@@ -84,3 +84,22 @@ export async function getWikiPage(title: string) {
   }
   return null
 }
+
+export interface WeightedItem {
+  slug: string;
+  weight: number;
+}
+
+export async function fetchWeightedItems(): Promise<WeightedItem[]> {
+  try {
+    const response = await fetch('/filtered.txt')
+    const text = await response.text()
+    return text.trim().split('\n').map(line => {
+      const [slug, weight] = line.split(' ')
+      return { slug, weight: parseFloat(weight) }
+    })
+  } catch (error) {
+    console.error('Error fetching filtered.txt:', error)
+    return []
+  }
+}

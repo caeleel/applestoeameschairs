@@ -75,7 +75,7 @@ export default function Search() {
           ref={inputRef}
           type="text"
           placeholder="Search to rate"
-          className="w-full text-gray-900 rounded-lg focus:outline-none"
+          className="w-full p-0.5 text-gray-900 rounded-lg focus:outline-none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={() => setIsResultsOpen(true)}

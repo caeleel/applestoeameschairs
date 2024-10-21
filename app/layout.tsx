@@ -9,20 +9,20 @@ const inter = Inter({ subsets: ['latin'] })
 function NavBar() {
   return (
     <>
-      <nav className="bg-white fixed w-full top-0 z-50">
-        <ul className="flex justify-between items-center py-4 px-12 nav-list">
-          <li>
-            <Link href="/battle" className="font-medium nav-item hover:text-primary hover:underline">
+      <nav className="bg-white fixed w-full top-0 z-50 text-black">
+        <ul className="flex justify-between items-center py-4 px-12 nav-list relative">
+          <li className="w-1/3 text-left">
+            <Link href="/battle" className="font-medium text-black nav-item hover:text-primary hover:underline">
               This vs That
             </Link>
           </li>
-          <li>
-            <Link href="/rate" className="font-medium nav-item hover:text-primary hover:underline">
+          <li className="w-1/3 text-center">
+            <Link href="/rate" className="font-medium text-black nav-item hover:text-primary hover:underline">
               1 - 10
             </Link>
           </li>
-          <li>
-            <Link href="/" className="font-medium nav-item hover:text-primary hover:underline">
+          <li className="w-1/3 text-right">
+            <Link href="/" className="font-medium text-black nav-item hover:text-primary hover:underline">
               Ranking
             </Link>
           </li>

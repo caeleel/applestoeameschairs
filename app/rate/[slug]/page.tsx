@@ -113,7 +113,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
 
   const getBarHeight = (rating: number) => {
     if (!ratingData) return '48px'; // Default height before rating
-    const height = maxRating > 0 ? (rating / maxRating) * 80 + 20 : 20; // Min height of 20px, max of 100px
+    const height = maxRating > 0 ? (rating / maxRating) * 60 + 10 : 20; // Min height of 20px, max of 100px
     return `${height}px`;
   }
 

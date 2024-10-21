@@ -119,7 +119,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <div className="flex flex-col mt-8 md:flex-row" style={{ height: 'calc(100vh - 64px)' }}>
+      <div className="flex flex-col mt-8 md:flex-row" style={{ height: 'calc(100svh - 64px)' }}>
         {/* Left Pane */}
         <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-row md:flex-col items-center justify-center p-4" style={{ backgroundColor: bgColor }}>
           {thumbnailUrl && (

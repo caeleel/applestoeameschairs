@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { hashStringToColor } from '@/lib/util'
 import Search from '@/components/Search';
@@ -11,27 +11,48 @@ interface Ranking {
   score: number;
 }
 
+let offsetFetched = -1;
+
 export default function Home() {
   const [rankings, setRankings] = useState<Ranking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchRankings() {
-      try {
-        const response = await fetch(`/api/ranks?type=score`, { cache: 'no-store' });
-        const data = await response.json();
-        setRankings(data);
-      } catch (error) {
-        console.error('Error fetching rankings:', error);
-      } finally {
-        setIsLoading(false);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastRankingElementRef = useCallback((node: HTMLTableRowElement | null) => {
+    if (isLoading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setOffset((prevOffset) => {
+          return prevOffset + 100
+        });
       }
-    }
+    });
+    if (node) observer.current.observe(node);
+  }, [isLoading, hasMore]);
 
-    fetchRankings();
+  const fetchRankings = useCallback(async (currentOffset: number) => {
+    if (offsetFetched >= currentOffset) return;
+    setIsLoading(true);
+    offsetFetched = currentOffset;
+    try {
+      const response = await fetch(`/api/ranks?type=score&offset=${currentOffset}`, { cache: 'no-store' });
+      const data = await response.json();
+      setRankings(prevRankings => [...prevRankings, ...data]);
+      setHasMore(data.length === 100);
+    } catch (error) {
+      console.error('Error fetching rankings:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
-  if (isLoading) {
+  useEffect(() => {
+    fetchRankings(offset);
+  }, [offset, fetchRankings]);
+
+  if (rankings.length === 0 && isLoading) {
     return (
       <>
         <Search />
@@ -54,6 +75,7 @@ export default function Home() {
               return (
                 <tr
                   key={item.name}
+                  ref={index === rankings.length - 1 ? lastRankingElementRef : null}
                   className="hover:bg-opacity-80 transition-colors duration-200"
                   style={{ '--hover-bg-color': hoverColor } as React.CSSProperties}
                 >
@@ -88,6 +110,11 @@ export default function Home() {
             })}
           </tbody>
         </table>
+        {isLoading && (
+          <div className="flex justify-center items-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+          </div>
+        )}
       </div>
     </>
   )

@@ -4,6 +4,7 @@ import { sql } from '@vercel/postgres';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const type = searchParams.get('type');
+  const offset = searchParams.get('offset') || 0;
 
   if (type !== 'score') {
     return NextResponse.json({ error: 'Invalid ranking type' }, { status: 400 });
@@ -15,6 +16,7 @@ export async function GET(request: NextRequest) {
       FROM rankings
       ORDER BY score DESC
       LIMIT 100
+      OFFSET ${offset}
     `;
 
     return NextResponse.json(result.rows);

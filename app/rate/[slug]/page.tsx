@@ -128,9 +128,9 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
             </div>
           )}
           <div className="p-8">
-            <h1 className="text-2xl font-bold text-black mb-2 md:text-center text-left">{title}</h1>
+            <h1 className="text-base md:text-2xl font-bold text-black mb-2 md:text-center text-left">{title}</h1>
             {description && (
-              <p className="text-l text-gray-800 md:text-center text-left italic">{description}</p>
+              <p className="text-sm md:text-lg text-gray-800 md:text-center text-left italic">{description}</p>
             )}
             <div className="mt-8 flex flex-col md:items-center items-start text-sm">
               <a
@@ -144,15 +144,6 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
-              <button
-                onClick={() => {
-                  localStorage.setItem(`banned:${params.slug}`, '1');
-                  router.push('/rate');
-                }}
-                className="text-gray-600 text-left md:text-center hover:underline"
-              >
-                I don't know or care what this is
-              </button>
             </div>
           </div>
         </div>

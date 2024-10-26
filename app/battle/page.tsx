@@ -7,7 +7,7 @@ import { fetchWeightedItems, WeightedItem } from '@/lib/util';
 
 const BANNED_WORDS: string[] = []; // Add your banned words here
 
-function getRandomSlug(items: WeightedItem[], exclude: string[] = []) {
+function getRandomSlug(items: WeightedItem[], exclude: string[] = []): string {
   const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
   let random = Math.random() * totalWeight;
 

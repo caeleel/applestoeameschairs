@@ -200,7 +200,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
       <Search />
       <div className="absolute w-full top-24 flex items-center justify-center z-100 pointer-events-none" style={{ height: 'calc(100% - 104px)' }}>
         <div className="w-16 h-16 relative group cursor-pointer pointer-events-auto" onClick={() => router.push('/rate')}>
-          <svg className="w-16 h-16 group-hover:hidden" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="rgb(209 213 219)">
+          <svg className="w-16 h-16 group-hover:hidden" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" version="1.1" fill={bgColor}>
             <path d="M 0 80 C 0 12.000000000000002, 12.000000000000002 0, 80 0 S 160 12.000000000000002, 160 80, 148 160 80 160, 0 148, 0 80" transform="rotate(0,80,80) translate(0,0)"></path>
           </svg>
           <svg className="w-16 h-16 group-hover:block hidden" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white">

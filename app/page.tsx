@@ -11,11 +11,15 @@ interface Ranking {
   score: number;
 }
 
-let offsetFetched = -1;
+let cachedRankings: Ranking[] = []
+let offsetFetched = -1
 
 export default function Home() {
-  const [rankings, setRankings] = useState<Ranking[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [rankings, setRankings] = useState<Ranking[]>(cachedRankings);
+  const [isLoading, setIsLoading] = useState(cachedRankings.length === 0)
+  if (offsetFetched < rankings.length) {
+    offsetFetched = rankings.length - 1
+  }
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -34,12 +38,15 @@ export default function Home() {
 
   const fetchRankings = useCallback(async (currentOffset: number) => {
     if (offsetFetched >= currentOffset) return;
-    setIsLoading(true);
     offsetFetched = currentOffset;
+    setIsLoading(true);
     try {
       const response = await fetch(`/api/ranks?type=score&offset=${currentOffset}`, { cache: 'no-store' });
       const data = await response.json();
-      setRankings(prevRankings => [...prevRankings, ...data]);
+      setRankings(prevRankings => {
+        cachedRankings = [...prevRankings, ...data]
+        return cachedRankings
+      });
       setHasMore(data.length === 100);
     } catch (error) {
       console.error('Error fetching rankings:', error);
@@ -86,7 +93,7 @@ export default function Home() {
                         <Link href={`/rate/${item.name}`} className="text-right w-24 text-4xl hover:underline font-bold">
                           {item.score.toFixed(2)}
                         </Link>
-                        <div className="relative" style={{ width: 'calc(100vw - 200px)' }}>
+                        <div className="relative" style={{ width: 'calc(100vw - 240px)' }}>
                           <Link href={`/rate/${item.name}`} className="text-lg font-bold hover:underline w-full block overflow-ellipsis overflow-hidden whitespace-nowrap">{item.name.replace(/_/g, ' ')}</Link>
                           <div className="text-xs text-gray-400 group-hover:text-gray-700 w-full block overflow-ellipsis overflow-hidden whitespace-nowrap">{item.description}</div>
                         </div>

@@ -44,7 +44,7 @@ export default function RatePage() {
   return (
     <div className="flex-grow">
       <Search />
-      <div className="bg-black w-screen h-screen flex items-center justify-center">
+      <div className="bg-black w-full h-full flex items-center justify-center">
         {isLoading && (
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
         )}

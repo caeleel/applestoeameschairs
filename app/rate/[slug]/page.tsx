@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
 import Search from '@/components/Search';
 import { getSearchResults, hashStringToColor } from '@/lib/util';
-import { useRouter } from 'next/navigation';
 
 interface RatingData {
   rating_1: number;
@@ -40,6 +40,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
   }
 
   const router = useRouter()
+
   useEffect(() => {
     const decodedSlug = decodeURIComponent(params.slug.replace(/_/g, ' '))
     setTitle(decodedSlug)
@@ -197,6 +198,23 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <Search />
+      <div className="absolute w-full top-24 flex items-center justify-center z-100 pointer-events-none" style={{ height: 'calc(100% - 104px)' }}>
+        <div className="w-16 h-16 relative group cursor-pointer pointer-events-auto" onClick={() => router.push('/rate')}>
+          <svg className="w-16 h-16 group-hover:hidden" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="rgb(209 213 219)">
+            <path d="M 0 80 C 0 12.000000000000002, 12.000000000000002 0, 80 0 S 160 12.000000000000002, 160 80, 148 160 80 160, 0 148, 0 80" transform="rotate(0,80,80) translate(0,0)"></path>
+          </svg>
+          <svg className="w-16 h-16 group-hover:block hidden" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white">
+            <path d="M 0 80 C 0 12.000000000000002, 12.000000000000002 0, 80 0 S 160 12.000000000000002, 160 80, 148 160 80 160, 0 148, 0 80" transform="rotate(0,80,80) translate(0,0)"></path>
+          </svg>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <svg height="36" width="36" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 100 100" xmlSpace="preserve">
+              <path d="M83.745,69.516l-8.181,5.666V67.08c0,0-9.253,0-10.93,0c-15.551,0-29.989-27.566-41.66-27.566H8.069v-6.542h14.906  c18.125,0,29.063,27.65,41.66,27.65c1.76,0,10.93,0,10.93,0V52.52l8.181,5.666l8.186,5.665L83.745,69.516z" />
+              <path d="M50.619,45.877c0.375,0.396,0.749,0.794,1.123,1.19c4.344-4.354,8.521-7.69,12.894-7.69c1.76,0,10.93,0,10.93,0v8.103  l8.181-5.666l8.186-5.666l-8.186-5.666l-8.181-5.665v8.102c0,0-9.253,0-10.93,0c-6.048,0-11.926,4.172-17.539,9.269  C48.298,43.419,49.472,44.659,50.619,45.877z" />
+              <path d="M37.986,54.719c-0.633-0.626-1.276-1.261-1.923-1.894c-4.649,4.337-9.037,7.661-13.088,7.661H8.069v6.541h14.906  c6.979,0,12.889-4.103,18.243-9.145C40.123,56.824,39.044,55.763,37.986,54.719z" />
+            </svg>
+          </div>
+        </div>
+      </div >
     </>
   )
 }

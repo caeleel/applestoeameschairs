@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import Search from '@/components/Search';
 import { getSearchResults, hashStringToColor } from '@/lib/util';
@@ -125,7 +124,7 @@ export default function RateItemPage({ params }: { params: { slug: string } }) {
         <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-row md:flex-col items-center justify-center p-4" style={{ backgroundColor: bgColor }}>
           {thumbnailUrl && (
             <div>
-              <Image src={thumbnailUrl} alt={title} width={240} height={240} />
+              <img src={thumbnailUrl} alt={title} width={240} height={240} />
             </div>
           )}
           <div className="p-8">

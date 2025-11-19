@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import debounce from 'lodash/debounce'
 import { SearchResult } from '@/lib/util'
 
@@ -88,7 +87,7 @@ export default function Search() {
               <div onMouseDown={() => handleResultClick(result)} className="flex items-center w-full cursor-pointer">
                 <div className="w-[60px] h-[60px] mr-4 rounded bg-gray-100 flex-shrink-0 overflow-hidden flex items-center justify-center">
                   {result.thumbnail ? (
-                    <Image
+                    <img
                       src={result.thumbnail.source}
                       alt={result.title}
                       width={60}

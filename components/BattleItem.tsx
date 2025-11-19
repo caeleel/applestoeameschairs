@@ -1,6 +1,5 @@
 import React from 'react';
 import { SearchResult, getSearchResults, hashStringToColor } from '@/lib/util';
-import Image from 'next/image';
 
 interface BattleItemProps {
   slug: string;
@@ -45,12 +44,18 @@ const BattleItem: React.FC<BattleItemProps> = ({ slug, onVote }) => {
     >
       {item.thumbnail && (
         <div className="relative w-48 h-48 mb-4">
-          <Image
+          <img
             src={item.thumbnail.source}
             alt={item.title}
-            layout="fill"
-            objectFit="cover"
             className="rounded-lg"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
           />
         </div>
       )}

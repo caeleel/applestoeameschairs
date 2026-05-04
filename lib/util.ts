@@ -69,7 +69,7 @@ export function getSearchResults(data: { query: { pages: { [key: string]: Search
     const page = Object.values(pages)[0] as SearchResult
     if (page.title === title) {
       if (page.thumbnail?.source) {
-        page.thumbnail.source = page.thumbnail.source.replace(/\/\d+px-/, '/480px-')
+        page.thumbnail.source = page.thumbnail.source.replace(/\/\d+px-/, '/500px-')
       }
     }
     return page
